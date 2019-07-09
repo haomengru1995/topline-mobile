@@ -11,12 +11,15 @@
           required
           clearable
           label="手机号"
+          placeholder="请输入手机号"
+          :err-message="errors.mobile"
         />
         <van-field
           v-model="user.code"
           type="password"
           label="密码"
           required
+          :err-message="errors.code"
         />
       </van-cell-group>
       <div class="login-btn-box">
@@ -42,15 +45,36 @@ export default {
         mobile: '',
         code: ''
       },
-      loginLoading: false
+      loginLoading: false,
+      errors: {
+        mobile: '',
+        code: ''
+      }
     }
   },
   methods: {
     async handleLogin () {
-      this.loginLoading = true
       try {
-        const res = await login(this.user)
-        console.log(res)
+        // 发送请求之前，校验表单数据，校验通过，才进行登录
+        const { mobile, code } = this.user
+        const errors = this.errors
+        if (mobile.length) {
+          errors.mobile = ''
+        } else {
+          errors.mobile = '手机号不能为空'
+          return
+        }
+
+        if (code.length) {
+          errors.code = ''
+        } else {
+          errors.code = '验证码不能为空'
+          return
+        }
+        // 表单验证通过，发送请求，loading 加载
+        this.loginLoading = true
+        const data = await login(this.user)
+        this.$store.commit('setUser', data)
       } catch (err) {
         console.log(err)
         console.log('登录失败')
