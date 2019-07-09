@@ -9,10 +9,12 @@ import 'postcss-pxtorem'
 import {
   NavBar,
   Button,
-  Field
+  Field,
+  Cell,
+  CellGroup
 
 } from 'vant'
-Vue.use(NavBar).use(Button).use(Field)
+Vue.use(NavBar).use(Button).use(Field).use(Cell).use(CellGroup)
 
 Vue.config.productionTip = false
 
