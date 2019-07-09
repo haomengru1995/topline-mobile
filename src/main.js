@@ -10,9 +10,25 @@ import {
   Button,
   Field,
   Cell,
-  CellGroup
+  CellGroup,
+  Tab,
+  Tabs,
+  Tabbar,
+  TabbarItem,
+  PullRefresh,
+  List
 } from 'vant'
-Vue.use(NavBar).use(Button).use(Field).use(Cell).use(CellGroup)
+Vue.use(NavBar)
+  .use(Button)
+  .use(Field)
+  .use(Cell)
+  .use(CellGroup)
+  .use(Tab)
+  .use(Tabs)
+  .use(Tabbar)
+  .use(TabbarItem)
+  .use(PullRefresh) // 下拉刷新
+  .use(List)
 
 Vue.config.productionTip = false
 
