@@ -17,7 +17,8 @@ import {
   Tabbar,
   TabbarItem,
   PullRefresh,
-  List
+  List,
+  Toast
 } from 'vant'
 Vue.use(NavBar)
   .use(Button)
@@ -30,10 +31,16 @@ Vue.use(NavBar)
   .use(TabbarItem)
   .use(PullRefresh) // 下拉刷新
   .use(List)
+  .use(Toast)
 Vue.use(VeeValidate, {
   events: '' // 禁用默认事件验证
 })
 Validator.localize('zh_CN', zhCN)
+Vue.prototype.$sleep = time => {
+  return new Promise((resolve, reject) => {
+    window.setTimeout(resolve, time)
+  })
+}
 Vue.config.productionTip = false
 new Vue({
   router,
