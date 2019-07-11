@@ -62,7 +62,7 @@ export default {
       pullRefreshLoading: false
     }
   },
-  method: {
+  methods: {
     onLoad () {
       // 异步更新数据
       setTimeout(() => {

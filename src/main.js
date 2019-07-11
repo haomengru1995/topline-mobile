@@ -4,7 +4,8 @@ import router from './router'
 import store from './store'
 // 这个第三包引入即可，它会自动根据页面宽度设置网页基准字体大小
 import 'amfe-flexible'
-
+import VeeValidate, { Validator } from 'vee-validate'
+import zhCN from 'vee-validate/dist/locale/zh_CN' // 语言包
 import {
   NavBar,
   Button,
@@ -29,9 +30,11 @@ Vue.use(NavBar)
   .use(TabbarItem)
   .use(PullRefresh) // 下拉刷新
   .use(List)
-
+Vue.use(VeeValidate, {
+  events: '' // 禁用默认事件验证
+})
+Validator.localize('zh_CN', zhCN)
 Vue.config.productionTip = false
-
 new Vue({
   router,
   store,
