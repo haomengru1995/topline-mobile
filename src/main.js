@@ -20,7 +20,9 @@ import {
   List,
   Toast,
   Popup,
-  Icon
+  Icon,
+  Grid,
+  GridItem
 } from 'vant'
 Vue.use(NavBar)
   .use(Button)
@@ -34,8 +36,10 @@ Vue.use(NavBar)
   .use(PullRefresh) // 下拉刷新
   .use(List)
   .use(Toast)
-  .use(Popup)
+  .use(Popup) // 弹出层
   .use(Icon)
+  .use(Grid) // 宫格
+  .use(GridItem)
 Vue.use(VeeValidate, {
   events: '' // 禁用默认事件验证
 })
