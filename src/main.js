@@ -18,7 +18,9 @@ import {
   TabbarItem,
   PullRefresh,
   List,
-  Toast
+  Toast,
+  Popup,
+  Icon
 } from 'vant'
 Vue.use(NavBar)
   .use(Button)
@@ -32,6 +34,8 @@ Vue.use(NavBar)
   .use(PullRefresh) // 下拉刷新
   .use(List)
   .use(Toast)
+  .use(Popup)
+  .use(Icon)
 Vue.use(VeeValidate, {
   events: '' // 禁用默认事件验证
 })

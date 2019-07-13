@@ -6,6 +6,10 @@
 
     <!-- 频道标签 -->
     <van-tabs class="channel-tabs" v-model="activeChannelIndex">
+      <!-- 将div插入右侧 -->
+      <div slot="nav-right" class="wap-nav" @click="isChannelShow = true">
+        <van-icon name="wap-nav" />
+      </div>
       <van-tab
       v-for="channelItem in channels"
       :key="channelItem.id"
@@ -53,14 +57,22 @@
       <van-tabbar-item icon="setting-o" to="my">我的</van-tabbar-item>
     </van-tabbar>
     <!-- /底部导航 -->
+
+    <!-- 频道组件 -->
+    <home-channel v-model="isChannelShow"/>
+    <!-- /频道组件 -->
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '@/api/channel'
 import { getArticles } from '@/api/article'
+import HomeChannel from './components/channel'
 export default {
   name: 'HomeIndex',
+  components: {
+    HomeChannel
+  },
   data () {
     return {
       channels: [],
@@ -68,12 +80,28 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      pullRefreshLoading: false
+      pullRefreshLoading: false,
+      isChannelShow: false // 控制频道面板的显示状态
     }
   },
   computed: {
     activeChannel () {
       return this.channels[this.activeChannelIndex]
+    }
+  },
+  watch: {
+    // 监视容器中的 user 的状态，只要 user 发生改变，那么就重新获取频道列表
+    // 注意：凡是能 this. 点儿出来的东西都可以被监视
+    async '$store.state.user' () {
+      // 重新加载频道数据
+      await this.loadChannels()
+      // 由于重新加载了频道数据，所以文章内容也都被清空了
+      // 而且上拉加载更多的 onLoad 没有主动触发
+      // 我们这里可以手动的触发上拉加载更多的 onLoad
+      // 提示：只需要将当前激活频道的上拉 loading 设置为true，它会自动调用自己的 onLoad 函数
+      this.activeChannel.upLoading = true
+      // 注意：这里肯定是有别的东西影响了，没有自动调用 onLoad,所以要手动调用
+      this.onLoad()
     }
   },
   async created () {
@@ -178,5 +206,13 @@ export default {
 }
 .channel-tabs /deep/ .van-tabs__content {
   margin-top: 92px;
+}
+.channel-tabs .wap-nav {
+  position: sticky;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  opacity: .5;
 }
 </style>
