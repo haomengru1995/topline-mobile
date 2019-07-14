@@ -46,3 +46,16 @@ export const deleteUserChannel = (channelId) => {
     url: `/app/v1_0/user/channels/${channelId}`
   })
 }
+/**
+ *
+ * 批量修改用户频道列表（部分覆盖）
+ */
+export const updataUserChannel = channels => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/channels',
+    data: {
+      channels
+    }
+  })
+}
