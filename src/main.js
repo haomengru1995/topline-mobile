@@ -6,6 +6,7 @@ import store from './store'
 import 'amfe-flexible'
 import VeeValidate, { Validator } from 'vee-validate'
 import zhCN from 'vee-validate/dist/locale/zh_CN' // 语言包
+import relativeTime from './filters/relative-time'
 import {
   NavBar,
   Button,
@@ -22,7 +23,9 @@ import {
   Popup,
   Icon,
   Grid,
-  GridItem
+  GridItem,
+  Image,
+  Lazyload
 } from 'vant'
 Vue.use(NavBar)
   .use(Button)
@@ -40,6 +43,8 @@ Vue.use(NavBar)
   .use(Icon)
   .use(Grid) // 宫格
   .use(GridItem)
+  .use(Image)
+  .use(Lazyload) // 图片懒加载
 Vue.use(VeeValidate, {
   events: '' // 禁用默认事件验证
 })
@@ -49,6 +54,8 @@ Vue.prototype.$sleep = time => {
     window.setTimeout(resolve, time)
   })
 }
+// 注册一个全局过滤器：处理相对时间
+Vue.filter('relativeTime', relativeTime)
 Vue.config.productionTip = false
 new Vue({
   router,

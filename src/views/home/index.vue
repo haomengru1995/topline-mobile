@@ -42,7 +42,24 @@
               v-for="item in channelItem.articles"
               :key="item.art_id"
               :title="item.title"
-            />
+            >
+              <div slot="label">
+                <template v-if="item.cover.type">
+                  <van-grid :border="false" :column-num="3">
+                    <van-grid-item v-for="img in item.cover.images" :key="img">
+                      <van-image :src="img" lazy-load/>
+                    </van-grid-item>
+                  </van-grid>
+                </template>
+                <p>
+                  <span>{{ item.aut_name }}</span>
+                  <span>&nbsp;&nbsp;</span>
+                  <span>{{ item.comm_count }}评论</span>
+                  <span>&nbsp;&nbsp;</span>
+                  <span>{{ item.pubdate | relativeTime }}</span>
+                </p>
+              </div>
+            </van-cell>
           </van-list>
         </van-pull-refresh>
       </van-tab>
