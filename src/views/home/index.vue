@@ -40,7 +40,7 @@
             <!-- 列表中的内容 -->
             <van-cell
               v-for="item in channelItem.articles"
-              :key="item.art_id"
+              :key="item.art_id.toString()"
               :title="item.title"
             >
               <div slot="label">
@@ -56,7 +56,16 @@
                   <span>&nbsp;&nbsp;</span>
                   <span>{{ item.comm_count }}评论</span>
                   <span>&nbsp;&nbsp;</span>
+                  <!-- | relativeTime 就是在调用过滤器函数
+                  过滤器函数接收的参数就是 | 前面的 item.pubdate
+                  过滤器函数返回值会输出到这里
+                  过滤器说白了就是函数，在模板中调用函数的另一种方式
+                  一般用于格式化输出内容，其中不会有太多业务逻辑，一般都是对字符串的格式化处理
+                  过滤器可以定义到：
+                  全局：Vue.filter('过滤器名称')，可以在任何组件中使用
+                  局部：filters 选项，只能在组件内部使用 -->
                   <span>{{ item.pubdate | relativeTime }}</span>
+                  <van-icon class="close" name="close" @click="handleShowMoreAction(item)"></van-icon>
                 </p>
               </div>
             </van-cell>
@@ -85,7 +94,7 @@
     <!-- 更多操作弹框 -->
     <van-dialog v-model="isMoreActionShow" :showConfirmButton="false">
       <van-cell-group v-if="!toggleRubbish">
-        <van-cell title="不感兴趣"/>
+        <van-cell title="不感兴趣" @click="handleDislick"/>
         <van-cell title="反馈垃圾内容" is-link @click="toggleRubbish = true"/>
         <van-cell title="拉黑作者"/>
       </van-cell-group>
@@ -119,8 +128,9 @@ export default {
       finished: false,
       pullRefreshLoading: false,
       isChannelShow: false, // 控制频道面板的显示状态
-      isMoreActionShow: true, // 控制更多操作弹框面板
-      toggleRubbish: false // 控制返回垃圾弹框内容的显示
+      isMoreActionShow: false, // 控制更多操作弹框面板
+      toggleRubbish: false, // 控制返回垃圾弹框内容的显示
+      currentArticle: null // 存储当前操作更多的文章
     }
   },
   computed: {
@@ -229,6 +239,17 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    // 处理显示更多操作弹窗面板
+    handleShowMoreAction (item) {
+      // 存id 用于后续使用
+      this.currentArticle = item
+      // 显示弹框
+      this.isMoreActionShow = true
+    },
+    async handleDislick () {
+      // 拿到操作文章的id
+      // 完成请求操作
     }
   }
 }
@@ -253,5 +274,8 @@ export default {
   align-items: center;
   background: #fff;
   opacity: .5;
+}
+.close {
+  float: right;
 }
 </style>
