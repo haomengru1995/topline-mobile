@@ -112,7 +112,7 @@
 
 <script>
 import { getUserChannels } from '@/api/channel'
-import { getArticles } from '@/api/article'
+import { getArticles, dislikeArticle } from '@/api/article'
 import HomeChannel from './components/channel'
 export default {
   name: 'HomeIndex',
@@ -249,7 +249,18 @@ export default {
     },
     async handleDislick () {
       // 拿到操作文章的id
+      const articleId = this.currentArticle.art_id.toString()
       // 完成请求操作
+      await dislikeArticle(articleId)
+      // 隐藏对话框
+      this.isMoreActionShow = false
+      // 当前频道文章列表
+      const articles = this.activeChannel.articles
+      // 找到不喜欢的文章位于文章中的索引
+      // findIndex 是一个数组方法，它会遍历数组，找到满足 item.art_id === articleId 条件的数据
+      const delIndex = articles.findIndex(item => item.art_id.toString() === articleId)
+      // 把本条数据移除
+      articles.splice(delIndex, 1)
     }
   }
 }
