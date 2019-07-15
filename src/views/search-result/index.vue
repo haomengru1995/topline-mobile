@@ -6,6 +6,7 @@
       left-text="返回"
       left-arrow
       fixed
+      @click-left="$router.back()"
     />
     <!-- 顶部导航 -->
 
