@@ -11,8 +11,12 @@
         icon="search"
         v-for="item in suggestions"
         :key="item"
-        :title="item"
-      />
+      >
+      <!-- {{}} 无法输出 html 字符内容 -->
+      <!-- v-html 指令才会解析字符串中的 html -->
+      <!-- 过滤只能用在 {{}} 和 v-bind 中 -->
+      <div slot="title" v-html="hightlight(item, searchText)"></div>
+      </van-cell>
     </van-cell-group>
     <!-- /联想建议列表 -->
 
@@ -56,6 +60,12 @@ export default {
       const data = await getSuggestion(newVal)
       this.suggestions = data.options
     }, 500)
+  },
+  methods: {
+    hightlight (text, keyword) {
+      return text.toLowerCase().split(keyword)
+        .join(`<span style="color: red;">${keyword}</span>`)
+    }
   }
 }
 </script>
