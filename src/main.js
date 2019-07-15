@@ -26,7 +26,8 @@ import {
   GridItem,
   Image,
   Lazyload,
-  Dialog
+  Dialog,
+  Search
 } from 'vant'
 Vue.use(NavBar)
   .use(Button)
@@ -47,6 +48,7 @@ Vue.use(NavBar)
   .use(Image)
   .use(Lazyload) // 图片懒加载
   .use(Dialog)
+  .use(Search)
 Vue.use(VeeValidate, {
   events: '' // 禁用默认事件验证
 })
