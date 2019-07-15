@@ -9,7 +9,7 @@
       />
     </form>
     <!-- 联想建议列表 -->
-    <van-cell-group>
+    <van-cell-group v-if="suggestions.length && searchText.length">
       <van-cell
         icon="search"
         v-for="item in suggestions"
@@ -25,7 +25,7 @@
     <!-- /联想建议列表 -->
 
     <!-- 历史记录 -->
-    <!-- <van-cell-group>
+    <van-cell-group v-else>
       <van-cell title="历史记录">
         <van-icon
           slot="right-icon"
@@ -33,7 +33,12 @@
           style="line-height: inherit;"
         />
       </van-cell>
-    </van-cell-group> -->
+      <van-cell
+        v-for="item in serachHistories"
+        :key="item"
+        :title="item"
+      />
+    </van-cell-group>
     <!-- /历史记录 -->
   </div>
 </template>
@@ -45,8 +50,9 @@ export default {
   name: 'SearchIndex',
   data () {
     return {
-      searchText: '',
-      suggestions: []
+      searchText: '', // 搜索输入的文本
+      suggestions: [], // 联想建议
+      serachHistories: JSON.parse(window.localStorage.getItem('serach-histories')) // 搜索历史记录
     }
   },
   watch: {
@@ -71,12 +77,15 @@ export default {
         .join(`<span style="color: red;">${keyword}</span>`)
     },
     handleSearch (q) {
-      this.$router.push({
-        name: 'search-result',
-        params: {
-          q
-        }
-      })
+      if (!q.length) {
+        return
+      }
+      this.serachHistories.push(q)
+      // 保存搜索历史记录
+      window.localStorage.setItem(
+        'serach-histories',
+        JSON.stringify([...new Set(this.serachHistories)])
+      )
     }
   }
 }
