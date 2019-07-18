@@ -55,6 +55,6 @@ export const reportArticle = ({
 export const getArticleDetail = (articleId) => {
   return request({
     method: 'GET',
-    url: `/app/v1_0/articles/:article_id${articleId}`
+    url: `/app/v1_0/articles/${articleId}`
   })
 }

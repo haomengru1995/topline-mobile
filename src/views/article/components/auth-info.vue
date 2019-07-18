@@ -1,10 +1,10 @@
 <template>
   <div class="auth-info">
     <div class="base-info">
-      <img class="avatar" src="http://img3.imgtn.bdimg.com/it/u=2508268909,4102507524&fm=26&gp=0.jpg" alt="">
+      <img class="avatar" :src="article.aut_photo" alt="">
       <div>
-        <p>阳光新闻</p>
-        <p>1小时前 阳光新闻官方账号</p>
+        <p>{{ article.aut_name }}</p>
+        <p>{{ article.pubdate | relativeTime}}</p>
       </div>
     </div>
     <div>
@@ -15,7 +15,12 @@
 <script>
 export default {
   name: 'AuthInfo',
-  props: {},
+  props: {
+    article: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {}
   },

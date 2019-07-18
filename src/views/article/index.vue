@@ -6,12 +6,9 @@
       left-arrow
       @click-left="$route.back()"
     />
-    <h2 class="article-title">文章标题</h2>
-    <AuthInfo />
-    <div class="article-content">
-      <img width="100%" src="http://img3.imgtn.bdimg.com/it/u=2508268909,4102507524&fm=26&gp=0.jpg" alt="">
-      <p>我叫王小贱，旺旺~ ~</p>
-    </div>
+    <h2 class="article-title">{{ article.title }}</h2>
+    <AuthInfo class="arto-info" :article="article" />
+    <div class="article-content" v-html="article.content"></div>
     <MoreAction />
     <RecommendArticle />
     <RecommendSearch />
@@ -43,7 +40,20 @@ export default {
   },
   data () {
     return {
-      article: {}
+      article: {
+        art_id: 1111,
+        attitude: null,
+        aut_id: 2,
+        aut_name: '唯爱忠星',
+        aut_photo: 'http://img3.imgtn.bdimg.com/it/u=2508268909,4102507524&fm=26&gp=0.jpg',
+        ch_id: 8,
+        content: `<p>我叫王小贱，旺旺~ ~ ~</p>`,
+        is_collected: false,
+        is_followed: false,
+        pubdate: '2019-07-18T18:14:52',
+        recomments: [],
+        title: 'I LOVE YOU ❤'
+      }
     }
   },
   created () {
@@ -56,7 +66,7 @@ export default {
     async loadArticleDetail () {
       try {
         const data = await getArticleDetail(this.$route.params.articleId.toString())
-        console.log(data)
+        this.article = data
       } catch (err) {
         console.log(err)
       }
@@ -70,6 +80,11 @@ export default {
     padding: 20px;
     .article-content {
       font-size: 24px;
+    }
+    .arto-info {
+      position: sticky;
+      top: 0;
+      background-color: #fff;
     }
   }
 </style>
