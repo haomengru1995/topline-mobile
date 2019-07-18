@@ -6,7 +6,10 @@
 export default {
   name: 'CommentList',
   props: {},
-  data () {},
+  data () {
+    return {
+    }
+  },
   created () {},
   methods: {}
 }

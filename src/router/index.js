@@ -26,8 +26,8 @@ export default new Router({
       component: () => import('@/views/search-result')
     },
     {
-      name: 'articles',
-      path: '/article/:articleId',
+      name: 'article',
+      path: '/article/:article_id',
       component: () => import('@/views/article')
     }
   ]

@@ -42,6 +42,7 @@
               v-for="item in channelItem.articles"
               :key="item.art_id.toString()"
               :title="item.title"
+              @click="$router.push({ name: 'article', params: {articleId: item.art_id} })"
             >
               <div slot="label">
                 <template v-if="item.cover.type">
