@@ -19,19 +19,6 @@ export const getArticles = ({
   })
 }
 /**
- *
- * 对文章列表不喜欢
- */
-export const dislikeArticle = articleId => {
-  return request({
-    method: 'POST',
-    url: '/app/v1_0/article/dislikes',
-    data: {
-      target: articleId
-    }
-  })
-}
-/**
  * 举报文章
  */
 export const reportArticle = ({
@@ -77,5 +64,26 @@ export const unLikeArticle = articleId => {
   return request({
     method: 'DELETE',
     url: `/app/v1_0/article/likings/${articleId}`
+  })
+}
+/**
+ * 对文章不喜欢
+ */
+export const disLikeArticle = articleId => {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/article/dislikes',
+    data: {
+      target: articleId
+    }
+  })
+}
+/**
+ * 取消对文章不喜欢
+ */
+export const unDisLikeArticle = articleId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/dislikes/${articleId}`
   })
 }
