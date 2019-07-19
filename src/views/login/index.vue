@@ -63,11 +63,11 @@ export default {
     async handleLogin () {
       try {
         // 调用 JavaScript 触发验证
-        // const valid = await this.$validator.$validate()
+        const valid = await this.$validator.$validate()
         // 如果校验失败，则停止后续代码执行
-        // if (!valid) {
-        //   return
-        // }
+        if (!valid) {
+          return
+        }
         // 表单验证通过，发送请求，loading 加载
         this.loginLoading = true
         const data = await login(this.user)

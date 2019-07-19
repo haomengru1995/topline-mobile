@@ -52,9 +52,30 @@ export const reportArticle = ({
 /**
  * 获取文章详情
  */
-export const getArticleDetail = (articleId) => {
+export const getArticleDetail = articleId => {
   return request({
     method: 'GET',
     url: `/app/v1_0/articles/${articleId}`
+  })
+}
+/**
+ * 点赞
+ */
+export const likeArticle = articleId => {
+  return request({
+    method: 'POST',
+    url: `/app/v1_0/article/likings`,
+    data: {
+      target: articleId
+    }
+  })
+}
+/**
+ * 取消点赞
+ */
+export const unLikeArticle = articleId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/likings/${articleId}`
   })
 }
