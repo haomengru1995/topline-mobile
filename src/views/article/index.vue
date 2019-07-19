@@ -47,7 +47,7 @@ export default {
         aut_name: '唯爱忠星',
         aut_photo: 'http://img3.imgtn.bdimg.com/it/u=2508268909,4102507524&fm=26&gp=0.jpg',
         ch_id: 8,
-        content: `<p>我叫王小贱，旺旺~ ~ ~</p>`,
+        content: `<p>旺旺~ ~ ~</p>`,
         is_collected: false,
         is_followed: false,
         pubdate: '2019-07-18T18:14:52',

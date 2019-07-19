@@ -72,9 +72,15 @@ export default {
         this.loginLoading = true
         const data = await login(this.user)
         this.$store.commit('setUser', data)
-        this.$router.push({
-          name: 'home'
-        })
+        // this.$router.push({
+        //   name: 'home'
+        // })
+        // 回到之前的页面:
+        // 1.简单粗暴的 back(),如果是手机App完全没问题
+        // 2.使用 url 记住来源路径
+        // this.$router.back()
+        const redirect = this.$route.query.redirect || '/'
+        this.$router.push(redirect)
       } catch (err) {
         this.$toast.fail('登录失败')
       }

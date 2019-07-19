@@ -8,11 +8,16 @@
       </div>
     </div>
     <div>
-      <van-button type="danger">关注</van-button>
+      <van-button
+      :type="article.is_followed ? 'default' : 'danger'"
+      :loading="isFollowLoading"
+      @click="handleFollow"
+      >{{ article.is_followed ? '已关注' : '关注'}}</van-button>
     </div>
   </div>
 </template>
 <script>
+import { followUser, unFollowUser } from '@/api/user'
 export default {
   name: 'AuthInfo',
   props: {
@@ -22,10 +27,36 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      isFollowLoading: false
+    }
   },
   created () {},
-  methods: {}
+  methods: {
+    async handleFollow () {
+      if (!this.$checkLogin()) {
+        return
+      }
+      this.isFollowLoading = true
+      const authId = this.article.aut_id
+      try {
+        if (this.article.is_followed) {
+          // 取消关注
+          await unFollowUser(authId)
+          // 将客户端的关注状态设置为 false
+          this.article.is_followed = false
+        } else {
+          // 关注
+          await followUser(authId)
+          // 将客户端的关注状态设置为 true
+          this.article.is_followed = true
+        }
+      } catch (err) {
+        this.$toast.fail('操作失败')
+      }
+      this.isFollowLoading = false
+    }
+  }
 }
 </script>
 

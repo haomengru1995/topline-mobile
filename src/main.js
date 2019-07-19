@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import checkLogin from './utils/check-login'
 // 这个第三包引入即可，它会自动根据页面宽度设置网页基准字体大小
 import 'amfe-flexible'
 import VeeValidate, { Validator } from 'vee-validate'
@@ -66,3 +67,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// 将登录状态挂载到Vue原型上，这样的话任何组件就可以使用了
+Vue.prototype.$checkLogin = checkLogin
