@@ -12,7 +12,7 @@
     <MoreAction :article="article"/>
     <!-- <RecommendArticle /> -->
     <!-- <RecommendSearch /> -->
-    <CommentList />
+    <CommentList :article-id="$route.params.articleId" />
     <ReplyList />
     <WriteComment />
   </div>
