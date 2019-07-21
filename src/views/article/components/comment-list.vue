@@ -24,7 +24,7 @@
           <p>
             <span>{{ item.pubdate | relativeTime }}</span>
             ·
-            <span>回复{{ item.reply_count }}</span>
+            <span @click="$emit('is-replylist-show', item.com_id.toString())">回复{{ item.reply_count }}</span>
           </p>
         </div>
       </van-cell>
@@ -37,11 +37,19 @@ import { getComments } from '@/api/comment'
 export default {
   name: 'CommentList',
   props: {
-    articleId: {
-      type: [Number, String]
+    /**
+     * 数据id，文章id 或是 评论 id
+     */
+    source: {
+      type: [Number, String],
+      required: true
     },
-    commentId: {
-      type: [Number, String]
+    /**
+     * source 是否是文章，默认当作文章
+     */
+    isArticle: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -57,10 +65,10 @@ export default {
   methods: {
     async onLoad () {
       const data = await getComments({
-        source: this.articleId || this.commentId,
+        source: this.source,
         offset: this.offset,
         limit: this.limit,
-        isArticle: !!this.articleId // 获取文章评论？还是获取评论的回复
+        isArticle: this.isArticle // 获取文章评论？还是获取评论的回复
       })
       // 如果数组为空，则表示没有数据了
       if (!data.results.length) {

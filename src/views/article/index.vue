@@ -12,8 +12,19 @@
     <MoreAction :article="article"/>
     <!-- <RecommendArticle /> -->
     <!-- <RecommendSearch /> -->
-    <CommentList :article-id="$route.params.articleId" />
-    <ReplyList />
+    <!--
+      source 用来指定数据的 id，默认获取文章评论，如果是获取评论的回复列表，则指定 is-article 为 false
+     -->
+    <CommentList
+      :source="$route.params.articleId.toString()"
+      @is-replylist-show="handleIsReplyListShow" />
+
+    <!-- 回复列表组件 -->
+    <ReplyList
+      v-model="isReplyListShow"
+      :comment-id="commentId"
+    />
+    <!-- /回复列表组件 -->
     <WriteComment />
   </div>
 </template>
@@ -41,19 +52,9 @@ export default {
   data () {
     return {
       article: {
-        art_id: 1111,
-        attitude: null,
-        aut_id: 2,
-        aut_name: '唯爱忠星',
-        aut_photo: 'http://img3.imgtn.bdimg.com/it/u=2508268909,4102507524&fm=26&gp=0.jpg',
-        ch_id: 8,
-        content: `<p>旺旺~ ~ ~</p>`,
-        is_collected: false,
-        is_followed: false,
-        pubdate: '2019-07-18T18:14:52',
-        recomments: [],
-        title: 'I LOVE YOU ❤'
-      }
+      },
+      isReplyListShow: false, // 控制回复组件的显示状态
+      commentId: null // 点击回复的评论 id
     }
   },
   created () {
@@ -70,6 +71,10 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    handleIsReplyListShow (id) {
+      this.commentId = id
+      this.isReplyListShow = true
     }
   }
 }
@@ -85,6 +90,7 @@ export default {
       position: sticky;
       top: 0;
       background-color: #fff;
+      z-index: 10;
     }
   }
 </style>
