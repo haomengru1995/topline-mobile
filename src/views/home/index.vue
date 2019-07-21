@@ -120,7 +120,7 @@
 
 <script>
 import { getUserChannels } from '@/api/channel'
-import { getArticles, dislikeArticle, reportArticle } from '@/api/article'
+import { getArticles, disLikeArticle, reportArticle } from '@/api/article'
 import HomeChannel from './components/channel'
 import { addBlacklist } from '@/api/user'
 export default {
@@ -271,7 +271,7 @@ export default {
       // 拿到操作文章的id
       const articleId = this.currentArticle.art_id.toString()
       // 完成请求操作
-      await dislikeArticle(articleId)
+      await disLikeArticle(articleId)
       // 隐藏对话框
       this.isMoreActionShow = false
       // 当前频道文章列表
