@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import checkLogin from './utils/check-login'
+import AppTabbar from './components/app-tabbar'
 // 这个第三包引入即可，它会自动根据页面宽度设置网页基准字体大小
 import 'amfe-flexible'
 import VeeValidate, { Validator } from 'vee-validate'
@@ -70,3 +71,4 @@ new Vue({
 
 // 将登录状态挂载到Vue原型上，这样的话任何组件就可以使用了
 Vue.prototype.$checkLogin = checkLogin
+Vue.component('app-tabbar', AppTabbar)

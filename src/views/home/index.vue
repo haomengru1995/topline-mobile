@@ -47,7 +47,7 @@
               <div slot="label">
                 <template v-if="item.cover.type">
                   <van-grid :border="false" :column-num="3">
-                    <van-grid-item v-for="img in item.cover.images" :key="img">
+                    <van-grid-item v-for="(img, index) in item.cover.images" :key="index">
                       <van-image :src="img" lazy-load/>
                     </van-grid-item>
                   </van-grid>
@@ -77,12 +77,7 @@
     <!-- /频道标签 -->
 
     <!-- 底部导航 -->
-    <van-tabbar route>
-      <van-tabbar-item icon="home-o" to='/'>首页</van-tabbar-item>
-      <van-tabbar-item icon="search" to="/qa">问答</van-tabbar-item>
-      <van-tabbar-item icon="friends-o" to="/video">视频</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" to="my">我的</van-tabbar-item>
-    </van-tabbar>
+    <app-tabbar/>
     <!-- /底部导航 -->
 
     <!-- 频道组件 -->
